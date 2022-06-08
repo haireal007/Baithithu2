@@ -1,6 +1,8 @@
 package Model;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
     private int id;
     private int amount;
     private double priceP;
@@ -67,5 +69,9 @@ public class Product {
                 ", nameP='" + nameP + '\'' +
                 ", describeP='" + describeP + '\'' +
                 '}';
+    }
+
+    public String write() {
+        return id + "," + nameP + "," + amount + "," + priceP + ","  + describeP;
     }
 }

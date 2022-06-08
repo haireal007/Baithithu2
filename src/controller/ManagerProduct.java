@@ -1,6 +1,7 @@
 package controller;
 
 import Model.Product;
+import io.ReaderAndWriteProduct;
 import sort.SortByPricePGiam;
 import sort.SortByPricePTang;
 import validate.ValidateProduct;
@@ -12,8 +13,10 @@ public class ManagerProduct {
     Scanner scanner = new Scanner(System.in);
     ArrayList<Product> products = new ArrayList<>();
     ValidateProduct validateProducts = new ValidateProduct();
+    ReaderAndWriteProduct readerAndWriteProduct=new ReaderAndWriteProduct();
 
     public void menu() {
+        System.out.println("");
         System.out.println("Menu");
         System.out.println("1. Xem danh sách Sản Phẩm ");
         System.out.println("2. Thêm mới Sản Phẩm");
@@ -28,6 +31,8 @@ public class ManagerProduct {
         int choice = Integer.parseInt(scanner.nextLine());
         switch (choice) {
             case 1:
+                System.out.println("số sản phẩm  " + products.size());
+                System.out.println("show ra 5 sản phẩm đầu, nhấn enter để hiện tiếp");
                 show();
                 break;
             case 2:
@@ -46,7 +51,13 @@ public class ManagerProduct {
                 findMaxProduct();
                 break;
             case 7:
+                products =readerAndWriteProduct.reader();
+                System.out.println("Đọc thành công");
+                break;
             case 8:
+                readerAndWriteProduct.Write(products);
+                System.out.println("Ghi thành công");
+                break;
             case 9:
                 System.exit(0);
                 break;
@@ -79,7 +90,7 @@ public class ManagerProduct {
     }
 
     public void editProduct() {
-        System.out.println("Nhập id cần xoá");
+        System.out.println("Nhập id cần sửa");
         int id = Integer.parseInt(scanner.nextLine());
         int index = validateProducts.getIndexId(id, products);
         if (index != -1) {
@@ -119,7 +130,7 @@ public class ManagerProduct {
     public void findMaxProduct() {
         products.sort(new SortByPricePTang());
         for (Product p : products) {
-            if (p == products.get(0)) {
+            if (p.getPriceP() == products.get(0).getPriceP()) {
                 System.out.println("sản phẩm có giá lớn nhất");
                 System.out.println(p);
             }
